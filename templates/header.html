@@ -1,0 +1,21 @@
+<link rel="stylesheet" e href="/static/styles/header.css">
+
+<header>
+  <h1>{{ .title }}</h1>
+  <nav class="navHeader">
+    <ul class="menu">
+      <li><a href="/">Home</a></li>
+      <li><a href="/create">Create</a></li>
+      <li><a href="/login">Enter</a></li>
+      <li><a href="/register">Register</a></li>
+    </ul>
+  </nav>
+
+  {{ if .userIsLogin }}
+  <div>
+    <img class="imgUser" src= "{{ .user.Image }}" alt="{{ .user.Username }}">
+    <h2 class="userName">{{ .user.Username }}</h2>
+  </div>
+  {{ end }}
+
+</header>

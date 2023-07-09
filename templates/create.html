@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Створення нового Art</title>
+<<<<<<< HEAD
+    <link rel="stylesheet" href="/static/styles/create.css">
+</head>
+<body>
+    {{ template "header.html" . }}
+    <form action="/create" method="POST" enctype="multipart/form-data">
+      <label for="image">Зображення:</label>
+      <div class="file-input">
+          <input type="file" name="image" id="image" accept="image/*" required>
+          <button type="button" id="file-btn">Вибрати файл</button>
+          <span id="file-name">Файл не вибрано</span>
+      </div>
+
+      <label for="description">Опис:</label>
+      <input type="text" name="description" id="description" required><br><br>
+
+      <label for="price">Ціна:</label>
+      <input type="text" name="price" id="price" required><br><br>
+
+      <input type="submit" value="Створити">
+  </form>
+
+  <script src="/static/js/create.js"></script>
+=======
+</head>
+<body>
+<h1>Створення нового Art</h1>
+<form action="/create" method="POST" enctype="multipart/form-data">
+    <label for="image">Зображення:</label>
+    <input type="file" name="image" id="image" required><br><br>
+
+    <label for="description">Опис:</label>
+    <input type="text" name="description" id="description" required><br><br>
+
+    <label for="price">Ціна:</label>
+    <input type="text" name="price" id="price" required><br><br>
+
+    <input type="submit" value="Створити">
+</form>
+>>>>>>> ba48797c769686358186c203c86bf2a5a0255318
+</body>
+</html>
