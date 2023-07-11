@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<<<<<<< HEAD
     <title>Kris Arts</title>
     <link rel="stylesheet" href="/static/styles/index.css">
 </head>
@@ -18,79 +17,3 @@
     </ul>
 </body>
 </html>
-
-=======
-    <title>Список Arts</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 20px;
-            text-align: center;
-        }
-
-        h1 {
-            margin-top: 0;
-            font-size: 28px;
-        }
-
-        ul {
-            list-style-type: none;
-            padding: 0;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        li {
-            width: 250px;
-            margin: 10px;
-            padding: 10px;
-            background-color: #f7f7f7;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            border-radius: 8px;
-        }
-
-        img {
-            width: 200px;
-            height: 200px;
-            object-fit: cover;
-            margin-bottom: 10px;
-            border-radius: 4px;
-        }
-
-        p {
-            margin: 0;
-            font-size: 14px;
-        }
-    </style>
-</head>
-<body>
-<header>
-    <h1>Список Arts</h1>
-</header>
-<ul>
-    {{ range .arts }}
-    <li>
-        <img src="{{ .Image }}" alt="Artwork" width="200" height="200">
-        <p>Description: {{ .Description }}</p>
-        <p>Price: {{ .Price }}</p>
-    </li>
-    {{ end }}
-</ul>
-<script>
-    let images = document.getElementsByTagName("img");
-    for (let i = 0; i < images.length; i++) {
-        images[i].src = images[i].src.replace(/%5c/g, "/");
-    }
-</script>
-</body>
-</html>
->>>>>>> ba48797c769686358186c203c86bf2a5a0255318
