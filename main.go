@@ -1,9 +1,15 @@
 package main
 
 import (
-<<<<<<< HEAD
+	"fmt"
 	"github.com/gin-gonic/gin"
-	. "krisArts/controllers"
+	"gorm.io/driver/sqlite"
+	"gorm.io/gorm"
+	"io"
+	"mime/multipart"
+	"net/http"
+	"os"
+	"path/filepath"
 )
 
 func main() {
@@ -24,17 +30,6 @@ func main() {
 	r.POST("/create", CreatePostController)
 	r.Run(":8080")
 }
-=======
-	"fmt"
-	"github.com/gin-gonic/gin"
-	"gorm.io/driver/sqlite"
-	"gorm.io/gorm"
-	"io"
-	"mime/multipart"
-	"net/http"
-	"os"
-	"path/filepath"
-)
 
 type Art struct {
 	ID          uint   `gorm:"primaryKey"`
@@ -133,4 +128,3 @@ func parsePrice(priceStr string) float64 {
 	fmt.Sscanf(priceStr, "%f", &price)
 	return price
 }
->>>>>>> ba48797c769686358186c203c86bf2a5a0255318
