@@ -22,9 +22,17 @@ func CreateController(c *gin.Context) {
 }
 
 func CreatePostController(c *gin.Context) {
+	var userIsLogin, user = CheckSessionUser(c.Request)
+
+	if !userIsLogin {
+		c.Writer.WriteHeader(http.StatusForbidden)
+		return
+	}
+
 	image, _ := c.FormFile("image")
 	description := c.PostForm("description")
 	price := c.PostForm("price")
+	name := c.PostForm("name")
 
 	imagePath := "media/arts/" + image.Filename
 	if err := saveImage(image, imagePath); err != nil {
@@ -36,6 +44,8 @@ func CreatePostController(c *gin.Context) {
 		Image:       imagePath,
 		Description: description,
 		Price:       parsePrice(price),
+		User:        user,
+		Name:        name,
 	}
 	DB.Create(&art)
 
