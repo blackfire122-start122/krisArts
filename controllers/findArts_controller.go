@@ -5,6 +5,8 @@ import (
 	. "krisArts/models"
 	. "krisArts/utils"
 	"net/http"
+	"fmt"
+	"strings"
 )
 
 func FindArts(c *gin.Context) {
@@ -15,9 +17,28 @@ func FindArts(c *gin.Context) {
 		return
 	}
 
+	findValue := c.Query("find")
+
 	var arts []Art
 
-	DB.Find(&arts, "")
+	if findValue != "" {
+		findValue = "%" + strings.ToLower(findValue) + "%"
+		DB.Where("lower(Name) LIKE ? OR lower(Description) LIKE ?", findValue, findValue).Find(&arts)
+	} else {
+		DB.Find(&arts)
+	}
 
-	c.JSON(http.StatusOK, nil)
+  var simplifiedArts []map[string]interface{}
+	for _, art := range arts {
+		simplifiedArt := map[string]interface{}{
+			"Name":        art.Name,
+			"Image":       art.Image,
+			"Description": art.Description,
+			"Price":       art.Price,
+		}
+		simplifiedArts = append(simplifiedArts, simplifiedArt)
+	}
+
+	c.JSON(http.StatusOK, simplifiedArts)
 }
+
