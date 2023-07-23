@@ -11,7 +11,7 @@ func HomeController(c *gin.Context) {
 	var userIsLogin, user = CheckSessionUser(c.Request)
 
 	var arts []Art
-	DB.Find(&arts)
+	DB.Limit(20).Find(&arts)
 
 	c.HTML(http.StatusOK, "index.html", gin.H{
 		"title":       "Kris Arts",

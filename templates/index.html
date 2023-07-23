@@ -7,20 +7,22 @@
 <body>
     {{ template "header.html" . }}
 
-    <div>
-        <input class="findInput" onchange="findInput(this)" type="text" placeholder="Find art" />
+    <div class="find">
+        <input class="findInput" onchange="findArts(this)" type="text" placeholder="Find art" />
+        <img onclick="findArts(this)" class="imgFind" src="/static/images/find.png" alt="find">
     </div>
 
-    <ul>
+    <ul class="listArts">
         {{ range .arts }}
         <li>
-            <h3>Name: {{ .Name }}</h3>
+            <h3>{{ .Name }}</h3>
             <img src="{{ .Image }}" alt="Artwork" width="200" height="200">
             <p>Description: {{ .Description }}</p>
             <p>Price: {{ .Price }}</p>
         </li>
         {{ end }}
     </ul>
+    <span class="spanFind"></span>
     <script src="/static/js/index.js"></script>
 </body>
 </html>
