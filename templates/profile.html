@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profile {{ .user.Username }}</title>
+    <link rel="stylesheet" href="/static/styles/profile.css">
+</head>
+<body>
+    {{ template "header.html" . }}
+    <div class="userInfo">
+      <img class="userImg" src="{{ .user.Image }}" alt="{{ .user.Username }}">
+      <h1>{{ .user.Username }}</h1>
+    </div>
+    
+    <div class="arts">
+      {{ range .arts }}
+        <img src="{{ .Image }}" alt="Artwork">
+      {{ end }}
+    </div>
+        
+  <script src="/static/js/profile.js"></script>
+</body>
+</html>
+
+
