@@ -13,7 +13,9 @@
 
   {{ if .userIsLogin }}
   <div>
-    <img class="imgUser" src= "{{ .user.Image }}" alt="{{ .user.Username }}">
+    <a href="/profile">
+      <img class="imgUser" src= "{{ .user.Image }}" alt="{{ .user.Username }}">
+    </a>
     <h2 class="userName">{{ .user.Username }}</h2>
   </div>
   {{ end }}
