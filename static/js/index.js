@@ -2,12 +2,9 @@ const ulElement = document.querySelector('.listArts');
 const findInput = document.querySelector('.findInput');
 const spanFind = document.querySelector('.spanFind');
 
-let countArts = 0
+let countArts = 20
 
 function findArts(e) {
-  if (timerId) {
-    clearTimeout(timerId);
-  }
   spanFind.innerText = ""
 
   let xhr = new XMLHttpRequest();
