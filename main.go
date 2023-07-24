@@ -17,12 +17,12 @@ func main() {
 	r.GET("/login", LoginUserController)
 	r.GET("/logout", LogoutUser)
 	r.GET("/register", RegisterUser)
-  r.GET("/profile", ProfileController)
+	r.GET("/profile", ProfileController)
 	r.POST("/create", CreatePostController)
 	r.POST("/login", LoginUserPostController)
 	r.POST("/register", RegisterPostUser)
 	r.GET("/api/findArts", FindArts)
-
+	r.DELETE("/api/deleteArt", ProfileDeleteArt)
 	//r.PUT("/changeUser", ChangeUser)
 	r.Run(":8080")
 }
