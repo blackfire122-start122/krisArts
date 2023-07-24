@@ -47,3 +47,7 @@ function hideDeleteConfirmation() {
     const deleteConfirmation = document.getElementById("deleteConfirmation");
     deleteConfirmation.style.display = "none";
 }
+
+function goToUrlChange(){
+    window.location.href = "/change/"+imgSelect.id
+}

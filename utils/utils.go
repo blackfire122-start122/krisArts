@@ -69,7 +69,7 @@ func Sign(user *UserRegister, c *gin.Context) error {
 		if err := c.SaveUploadedFile(user.Image, "./media/UserImages/"+user.Username+user.Image.Filename); err != nil {
 			return err
 		}
-		ImageName = "media/UserImages/" + user.Username + user.Image.Filename
+		ImageName = "/media/UserImages/" + user.Username + user.Image.Filename
 	}
 
 	err = DB.Create(&User{Username: user.Username, Password: string(hashedPassword), Image: ImageName}).Error
