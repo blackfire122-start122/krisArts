@@ -39,9 +39,18 @@ func ProfileDeleteArt(c *gin.Context) {
 		return
 	}
 
-	if err := os.Remove(art.Image); err != nil {
-		c.Writer.WriteHeader(http.StatusInternalServerError)
-		return
+	if art.Image != "" {
+		if _, err := os.Stat(art.Image); err == nil {
+			if err := os.Remove(art.Image); err != nil {
+				c.Writer.WriteHeader(http.StatusInternalServerError)
+				return
+			}
+		} else if os.IsNotExist(err) {
+
+		} else {
+			c.Writer.WriteHeader(http.StatusInternalServerError)
+			return
+		}
 	}
 
 	if err := DB.Delete(Art{}, deleteId).Error; err != nil {

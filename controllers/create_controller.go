@@ -10,6 +10,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"strconv"
 )
 
 func CreateController(c *gin.Context) {
@@ -34,20 +35,30 @@ func CreatePostController(c *gin.Context) {
 	price := c.PostForm("price")
 	name := c.PostForm("name")
 
-	imagePath := "media/arts/" + image.Filename
-	if err := saveImage(image, imagePath); err != nil {
-		c.String(http.StatusInternalServerError, fmt.Sprintf("Помилка при збереженні файлу: %s", err.Error()))
-		return
-	}
-
 	art := Art{
-		Image:       imagePath,
 		Description: description,
 		Price:       parsePrice(price),
 		User:        user,
 		Name:        name,
 	}
-	DB.Create(&art)
+
+	if err := DB.Create(&art).Error; err != nil {
+		c.Writer.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	imagePath := "media/arts/" + strconv.Itoa(int(art.ID)) + image.Filename
+
+	if err := saveImage(image, imagePath); err != nil {
+		c.String(http.StatusInternalServerError, fmt.Sprintf("Помилка при збереженні файлу: %s", err.Error()))
+		return
+	}
+
+	art.Image = imagePath
+	if err := DB.Save(&art).Error; err != nil {
+		c.Writer.WriteHeader(http.StatusInternalServerError)
+		return
+	}
 
 	c.Redirect(http.StatusSeeOther, "/")
 }

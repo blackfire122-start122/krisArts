@@ -22,7 +22,7 @@ func main() {
 	r.POST("/create", CreatePostController)
 	r.POST("/login", LoginUserPostController)
 	r.POST("/register", RegisterPostUser)
-	r.POST("/change", ChangePostController)
+	r.POST("/change/:id", ChangePostController)
 	r.GET("/api/findArts", FindArts)
 	r.DELETE("/api/deleteArt", ProfileDeleteArt)
 	//r.PUT("/changeUser", ChangeUser)

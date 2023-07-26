@@ -6,7 +6,7 @@
 </head>
 <body>
     {{ template "header.html" . }}
-    <form action="/change" method="POST" enctype="multipart/form-data">
+    <form action="/change/{{ .art.ID }}" method="POST" enctype="multipart/form-data">
       <input type="file" name="image" id="image" accept="image/*" required>
       <label class="imageContainer" for="image">
         <img id="artImage" src="/{{ .art.Image }}" alt="art">

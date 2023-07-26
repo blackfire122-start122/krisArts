@@ -1,11 +1,11 @@
 package controllers
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	. "krisArts/models"
 	. "krisArts/utils"
 	"net/http"
-	"fmt"
 	"os"
 )
 
@@ -46,14 +46,12 @@ func ChangePostController(c *gin.Context) {
 		return
 	}
 
-	id := c.PostForm("id")
+	id := c.Param("id")
 	image, _ := c.FormFile("image")
 	description := c.PostForm("description")
 	price := c.PostForm("price")
 	name := c.PostForm("name")
 
-	fmt.Println(image)
-	
 	var art Art
 	if err := DB.First(&art, id).Error; err != nil {
 		c.String(http.StatusInternalServerError, fmt.Sprintf("Помилка при знаходженні арту: %s", err.Error()))
@@ -61,22 +59,27 @@ func ChangePostController(c *gin.Context) {
 	}
 
 	if art.Image != "" {
-		if err := os.Remove(art.Image); err != nil {
-			c.String(http.StatusInternalServerError, fmt.Sprintf("Помилка при видаленні старої картинки: %s", err.Error()))
+		if _, err := os.Stat(art.Image); err == nil {
+			if err := os.Remove(art.Image); err != nil {
+				c.String(http.StatusInternalServerError, fmt.Sprintf("Помилка при видаленні старої картинки: %s", err.Error()))
+				return
+			}
+		} else if os.IsNotExist(err) {
+
+		} else {
+			c.String(http.StatusInternalServerError, fmt.Sprintf("Помилка при перевірці файлу: %s", err.Error()))
 			return
 		}
 	}
 
-	if true{
-	  imagePath := "media/arts/" + image.Filename
-  	if err := saveImage(image, imagePath); err != nil {
-  		c.String(http.StatusInternalServerError, fmt.Sprintf("Помилка при збереженні нової картинки: %s", err.Error()))
-	  	return
-	  }
+	imagePath := "media/arts/" + id + image.Filename
+
+	if err := saveImage(image, imagePath); err != nil {
+		c.String(http.StatusInternalServerError, fmt.Sprintf("Помилка при збереженні нової картинки: %s", err.Error()))
+		return
 	}
 
-	// Оновіть значення арту
-	art.Image = image.Filename
+	art.Image = imagePath
 	art.Description = description
 	art.Price = parsePrice(price)
 	art.Name = name
