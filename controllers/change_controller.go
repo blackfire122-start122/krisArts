@@ -5,6 +5,8 @@ import (
 	. "krisArts/models"
 	. "krisArts/utils"
 	"net/http"
+	"fmt"
+	"os"
 )
 
 func ChangeController(c *gin.Context) {
@@ -16,7 +18,7 @@ func ChangeController(c *gin.Context) {
 	}
 
 	var art Art
-	id := c.Query("id")
+	id := c.Param("id")
 
 	if err := DB.First(&art, id).Error; err != nil {
 		c.Writer.WriteHeader(http.StatusInternalServerError)
@@ -44,25 +46,45 @@ func ChangePostController(c *gin.Context) {
 		return
 	}
 
-	//image, _ := c.FormFile("image")
-	//description := c.PostForm("description")
-	//price := c.PostForm("price")
-	//name := c.PostForm("name")
-	//
-	//imagePath := "media/arts/" + image.Filename
-	//if err := saveImage(image, imagePath); err != nil {
-	//	c.String(http.StatusInternalServerError, fmt.Sprintf("Помилка при збереженні файлу: %s", err.Error()))
-	//	return
-	//}
+	id := c.PostForm("id")
+	image, _ := c.FormFile("image")
+	description := c.PostForm("description")
+	price := c.PostForm("price")
+	name := c.PostForm("name")
 
-	//art := Art{
-	//	Image:       imagePath,
-	//	Description: description,
-	//	Price:       parsePrice(price),
-	//	User:        user,
-	//	Name:        name,
-	//}
-	//DB.Create(&art)
+	fmt.Println(image)
+	
+	var art Art
+	if err := DB.First(&art, id).Error; err != nil {
+		c.String(http.StatusInternalServerError, fmt.Sprintf("Помилка при знаходженні арту: %s", err.Error()))
+		return
+	}
+
+	if art.Image != "" {
+		if err := os.Remove(art.Image); err != nil {
+			c.String(http.StatusInternalServerError, fmt.Sprintf("Помилка при видаленні старої картинки: %s", err.Error()))
+			return
+		}
+	}
+
+	if true{
+	  imagePath := "media/arts/" + image.Filename
+  	if err := saveImage(image, imagePath); err != nil {
+  		c.String(http.StatusInternalServerError, fmt.Sprintf("Помилка при збереженні нової картинки: %s", err.Error()))
+	  	return
+	  }
+	}
+
+	// Оновіть значення арту
+	art.Image = image.Filename
+	art.Description = description
+	art.Price = parsePrice(price)
+	art.Name = name
+
+	if err := DB.Save(&art).Error; err != nil {
+		c.String(http.StatusInternalServerError, fmt.Sprintf("Помилка при оновленні арту: %s", err.Error()))
+		return
+	}
 
 	c.Redirect(http.StatusSeeOther, "/profile")
 }

@@ -2,6 +2,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    background: #111;
 }
 
 h1 {
@@ -27,19 +28,17 @@ a {
 }
 
 form {
-    display: flex;
-    width: 80%;
+  display: flex;
+  width: 100%;
 }
 
 #artImage{
-    height: 70vh;
-    margin: 1%;
+  width: 40em;
 }
 
 label {
-    font-weight: bold;
-    display: block;
-    margin-bottom: 5px;
+  font-weight: bold;
+  display: flex;
 }
 
 input[type="file"] {
@@ -63,18 +62,30 @@ input[type="file"] {
     margin-left: 5px;
 }
 
-input[type="text"] {
-    margin-bottom: 10px;
+input[type="text"], textarea{
+  font-size: 2em;
+  width: 100%;
 }
 
 input[type="submit"] {
-    background-color: #333;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
+  font-size: 2em;
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
 }
 
 input[type="submit"]:hover {
-    background-color: #ffcc00;
+    background-color: gray;
+}
+
+.imageContainer{
+  display: flex;
+  flex-direction: column;
+}
+
+.infoArt{
+  width: 50%;
+  margin: 1%;
 }

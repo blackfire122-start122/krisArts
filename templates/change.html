@@ -7,31 +7,27 @@
 <body>
     {{ template "header.html" . }}
     <form action="/change" method="POST" enctype="multipart/form-data">
-<!--      <label for="image">Зображення:</label>-->
-<!--      <div class="file-input">-->
-<!--          <input type="file" name="image" id="image" accept="image/*" required>-->
-<!--          <button type="button" id="file-btn">Вибрати файл</button>-->
-<!--          <span id="file-name">Файл не вибрано</span>-->
-<!--      </div>-->
-
+      <input type="file" name="image" id="image" accept="image/*" required>
+      <label class="imageContainer" for="image">
         <img id="artImage" src="/{{ .art.Image }}" alt="art">
+        <button type="button" id="file-btn">Вибрати файл</button>
+      </label>
+      
+      </div>
+      <div class="infoArt">
+        <label for="name">Ім'я:</label>
+        <input value="{{ .art.Name }}" type="text" name="name" id="name" required><br><br>
 
-        <div>
-            <label for="name">Ім'я:</label>
-            <input value="{{ .art.Name }}" type="text" name="name" id="name" required><br><br>
+        <label for="description">Опис:</label>
+        <textarea name="description" id="description" required>{{ .art.Description }}</textarea><br><br>
 
-            <label for="description">Опис:</label>
-            <input value="{{ .art.Description }}" type="text" name="description" id="description" required><br><br>
+        <label for="price">Ціна:</label>
+        <input value="{{ .art.Price }}" type="text" name="price" id="price" required><br><br>
 
-            <label for="price">Ціна:</label>
-            <input value="{{ .art.Price }}" type="text" name="price" id="price" required><br><br>
-
-            <input type="submit" value="Змінити">
-        </div>
+        <input type="submit" value="Змінити">
+      </div>
   </form>
 
   <script src="/static/js/change.js"></script>
 </body>
 </html>
-
-
