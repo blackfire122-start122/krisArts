@@ -13,7 +13,7 @@
 
   {{ if .userIsLogin }}
   <div>
-    <a href="/profile">
+    <a href="/profile/{{ .user.Username }}">
       <img class="imgUser" src= "{{ .user.Image }}" alt="{{ .user.Username }}">
     </a>
     <h2 class="userName">{{ .user.Username }}</h2>

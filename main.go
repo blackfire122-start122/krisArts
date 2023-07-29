@@ -18,7 +18,7 @@ func main() {
 	r.GET("/login", LoginUserController)
 	r.GET("/logout", LogoutUser)
 	r.GET("/register", RegisterUser)
-	r.GET("/profile", ProfileController)
+	r.GET("/profile/:username", ProfileController)
 	r.GET("/change/:id", ChangeController)
 	r.POST("/create", CreatePostController)
 	r.POST("/login", LoginUserPostController)

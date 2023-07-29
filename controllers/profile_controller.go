@@ -11,20 +11,30 @@ import (
 
 func ProfileController(c *gin.Context) {
 	var userIsLogin, user = CheckSessionUser(c.Request)
+	
+	var userOfParam User
+	username := c.Param("username")
+	
+	if err:= DB.First(&userOfParam,"username=?", username).Error; err!=nil {
+	  c.Writer.WriteHeader(http.StatusBadRequest)
+	  return
+	}
 
 	var arts []Art
-	DB.Find(&arts, "user_id=?", user.Id).Limit(20)
+	DB.Find(&arts, "user_id=?", userOfParam.Id).Limit(20)
 
 	c.HTML(http.StatusOK, "profile.html", gin.H{
 		"title":       "Profile",
 		"arts":        arts,
 		"user":        user,
 		"userIsLogin": userIsLogin,
+		"userProfile": userOfParam,
+		"profileOwner":user.Id==userOfParam.Id,
 	})
 }
 
 func ProfileDeleteArt(c *gin.Context) {
-	var userIsLogin, _ = CheckSessionUser(c.Request)
+	var userIsLogin, user = CheckSessionUser(c.Request)
 
 	if !userIsLogin {
 		c.Writer.WriteHeader(http.StatusForbidden)
@@ -38,6 +48,11 @@ func ProfileDeleteArt(c *gin.Context) {
 	if err := DB.First(&art, deleteId).Error; err != nil {
 		c.Writer.WriteHeader(http.StatusInternalServerError)
 		return
+	}
+	
+	if art.UserId != user.Id {
+	  c.Writer.WriteHeader(http.StatusForbidden)
+	  return
 	}
 
 	if art.Image != "" {
