@@ -89,3 +89,19 @@ input[type="submit"]:hover {
   width: 50%;
   margin: 1%;
 }
+
+@media (mix-width: 320px) {
+    #artImage {
+        width: 100%;
+    }
+
+    /* Змініть інші стилі за потреби */
+    input[type="text"],
+    textarea {
+        font-size: 1.5em;
+    }
+    
+    form{
+      flex-direction: column;
+    }
+}
