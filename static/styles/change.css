@@ -3,6 +3,7 @@ body {
     margin: 0;
     padding: 0;
     background: #111;
+    color: white;
 }
 
 h1 {
@@ -29,16 +30,19 @@ a {
 
 form {
   display: flex;
+  flex-direction: column;
   width: 100%;
-}
-
-#artImage{
-  width: 40em;
+  height: 50vh;
 }
 
 label {
+  margin: 1%;
   font-weight: bold;
   display: flex;
+}
+
+label h2{
+    width: 3em;
 }
 
 input[type="file"] {
@@ -63,8 +67,17 @@ input[type="file"] {
 }
 
 input[type="text"], textarea{
+  outline: none;
+  background: none;
+  border: none;
+  border-bottom: 1px solid red;
   font-size: 2em;
   width: 100%;
+  color: white;
+}
+
+#descriptionLabel{
+    height: 100%;
 }
 
 input[type="submit"] {
@@ -84,24 +97,24 @@ input[type="submit"]:hover {
   display: flex;
   flex-direction: column;
 }
-
 .infoArt{
-  width: 50%;
-  margin: 1%;
+    position: relative;
+    right: 0;
+    margin: 1% auto;
+    width: 80%;
+    height: 100%;
 }
 
-@media (mix-width: 320px) {
+
+@media (min-width: 1240px) {
     #artImage {
-        width: 100%;
+        width: 40em;
     }
 
-    /* Змініть інші стилі за потреби */
-    input[type="text"],
-    textarea {
-        font-size: 1.5em;
+    form {
+        flex-direction: row;
     }
-    
-    form{
-      flex-direction: column;
+    .infoArt{
+        width: 50%;
     }
 }

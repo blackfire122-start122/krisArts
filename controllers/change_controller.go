@@ -47,10 +47,6 @@ func ChangePostController(c *gin.Context) {
 	}
 
 	id := c.Param("id")
-	image, _ := c.FormFile("image")
-	description := c.PostForm("description")
-	price := c.PostForm("price")
-	name := c.PostForm("name")
 
 	var art Art
 	if err := DB.First(&art, id).Error; err != nil {
@@ -58,28 +54,36 @@ func ChangePostController(c *gin.Context) {
 		return
 	}
 
-	if art.Image != "" {
-		if _, err := os.Stat(art.Image); err == nil {
-			if err := os.Remove(art.Image); err != nil {
-				c.String(http.StatusInternalServerError, fmt.Sprintf("Помилка при видаленні старої картинки: %s", err.Error()))
+	image, err := c.FormFile("image")
+	if err == nil {
+		if art.Image != "" {
+			if _, err := os.Stat(art.Image); err == nil {
+				if err := os.Remove(art.Image); err != nil {
+					c.String(http.StatusInternalServerError, fmt.Sprintf("Помилка при видаленні старої картинки: %s", err.Error()))
+					return
+				}
+			} else if os.IsNotExist(err) {
+
+			} else {
+				c.String(http.StatusInternalServerError, fmt.Sprintf("Помилка при перевірці файлу: %s", err.Error()))
 				return
 			}
-		} else if os.IsNotExist(err) {
+		}
 
-		} else {
-			c.String(http.StatusInternalServerError, fmt.Sprintf("Помилка при перевірці файлу: %s", err.Error()))
+		imagePath := "media/arts/" + id + image.Filename
+
+		if err := saveImage(image, imagePath); err != nil {
+			c.String(http.StatusInternalServerError, fmt.Sprintf("Помилка при збереженні нової картинки: %s", err.Error()))
 			return
 		}
+
+		art.Image = imagePath
 	}
 
-	imagePath := "media/arts/" + id + image.Filename
+	description := c.PostForm("description")
+	price := c.PostForm("price")
+	name := c.PostForm("name")
 
-	if err := saveImage(image, imagePath); err != nil {
-		c.String(http.StatusInternalServerError, fmt.Sprintf("Помилка при збереженні нової картинки: %s", err.Error()))
-		return
-	}
-
-	art.Image = imagePath
 	art.Description = description
 	art.Price = parsePrice(price)
 	art.Name = name

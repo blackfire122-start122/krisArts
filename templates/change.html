@@ -7,7 +7,7 @@
 <body>
     {{ template "header.html" . }}
     <form action="/change/{{ .art.ID }}" method="POST" enctype="multipart/form-data">
-      <input type="file" name="image" id="image" accept="image/*" required>
+      <input type="file" name="image" id="image" accept="image/*">
       <label class="imageContainer" for="image">
         <img id="artImage" src="/{{ .art.Image }}" alt="art">
         <button type="button" id="file-btn">Вибрати файл</button>
@@ -15,14 +15,20 @@
       
       </div>
       <div class="infoArt">
-        <label for="name">Ім'я:</label>
-        <input value="{{ .art.Name }}" type="text" name="name" id="name" required><br><br>
+        <label for="name">
+          <h2>Ім'я</h2>
+          <input value="{{ .art.Name }}" type="text" name="name" id="name" required>
+        </label>
 
-        <label for="description">Опис:</label>
-        <textarea name="description" id="description" required>{{ .art.Description }}</textarea><br><br>
+        <label id="descriptionLabel" for="description">
+          <h2>Опис</h2>
+          <textarea name="description" id="description" required>{{ .art.Description }}</textarea>
+        </label>
 
-        <label for="price">Ціна:</label>
-        <input value="{{ .art.Price }}" type="text" name="price" id="price" required><br><br>
+        <label for="price">
+          <h2>Ціна</h2>
+          <input value="{{ .art.Price }}" type="text" name="price" id="price" required>
+        </label>
 
         <input type="submit" value="Змінити">
       </div>
