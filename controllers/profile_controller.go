@@ -6,6 +6,7 @@ import (
 	. "krisArts/utils"
 	"net/http"
 	"os"
+	"strconv"
 )
 
 func ProfileController(c *gin.Context) {
@@ -59,4 +60,40 @@ func ProfileDeleteArt(c *gin.Context) {
 	}
 
 	c.Writer.WriteHeader(http.StatusOK)
+}
+
+func LoadArtsUser(c *gin.Context) {
+	var userIsLogin, user = CheckSessionUser(c.Request)
+
+	if !userIsLogin {
+		c.Writer.WriteHeader(http.StatusForbidden)
+		return
+	}
+
+	countArts, err := strconv.Atoi(c.Query("countArts"))
+	if err != nil {
+		c.Writer.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	var arts []Art
+
+	if err := DB.Limit(20).Offset(countArts).Find(&arts, "user_id=?", user.Id).Error; err != nil {
+		c.Writer.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	var simplifiedArts []map[string]interface{}
+	for _, art := range arts {
+		simplifiedArt := map[string]interface{}{
+			"Name":        art.Name,
+			"ID":          art.ID,
+			"Image":       art.Image,
+			"Description": art.Description,
+			"Price":       art.Price,
+		}
+		simplifiedArts = append(simplifiedArts, simplifiedArt)
+	}
+
+	c.JSON(http.StatusOK, simplifiedArts)
 }

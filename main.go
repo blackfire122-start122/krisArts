@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	. "krisArts/controllers"
 )
@@ -25,6 +26,11 @@ func main() {
 	r.POST("/change/:id", ChangePostController)
 	r.GET("/api/findArts", FindArts)
 	r.DELETE("/api/deleteArt", ProfileDeleteArt)
-	//r.PUT("/changeUser", ChangeUser)
-	r.Run(":8080")
+	r.GET("/api/profile/loadArtsUser", LoadArtsUser)
+
+	err := r.Run(":8080")
+	if err != nil {
+		fmt.Println("Err run server ", err.Error())
+		return
+	}
 }

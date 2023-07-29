@@ -1,17 +1,20 @@
 const artImages = document.querySelectorAll(".artImg");
+const arts = document.querySelector(".arts");
 const fullscreenImageContainer = document.getElementById("fullscreenImageContainer");
 const fullscreenImage = document.getElementById("fullscreenImage");
 const closeButton = document.getElementById("closeButton");
 
 let imgSelect
 
+function artClick (e) {
+    fullscreenImage.src = e.src;
+    fullscreenImageContainer.style.display = "block";
+    imgSelect = e
+}
+
 artImages.forEach((img) => {
-    img.addEventListener("click", () => {
-        fullscreenImage.src = img.src;
-        fullscreenImageContainer.style.display = "block";
-        imgSelect = img
-    });
-});
+    img.addEventListener("click", ()=>artClick(img))
+})
 
 function closeImage(){
     fullscreenImageContainer.style.display = "none";
@@ -50,4 +53,64 @@ function hideDeleteConfirmation() {
 
 function goToUrlChange(){
     window.location.href = "/change/"+imgSelect.id
+}
+
+let countArts = 20
+
+function findArts() {
+    let xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                let response = JSON.parse(xhr.responseText);
+
+                if (response === null){
+                    return
+                }
+
+                response.forEach(artData => {
+                    const art = createArtElement(artData);
+                    arts.appendChild(art);
+                });
+                countArts += 20
+            } else {
+                console.error('Помилка ' + xhr.status + ': ' + xhr.statusText);
+            }
+        }
+    };
+    const url = `http://localhost:8080/api/profile/loadArtsUser?countArts=${encodeURIComponent(countArts)}`;
+
+    xhr.open('GET', url, true);
+    xhr.send();
+}
+
+function createArtElement(artData) {
+    const art = document.createElement('img');
+
+    art.src = artData.Image
+    art.alt = "Artwork"
+    art.id = artData.ID
+    art.className = "artImg"
+
+    art.addEventListener("click", ()=>artClick(art))
+
+    return art;
+}
+
+let timerId
+let canFindArts = true
+
+window.addEventListener('scroll', handleScroll);
+
+function handleScroll() {
+    const contentHeight = document.documentElement.scrollHeight;
+    const visibleHeight = window.innerHeight;
+    const scrolledHeight = window.scrollY;
+
+    if (contentHeight - (visibleHeight + scrolledHeight) <= 300 && canFindArts ){
+        canFindArts = false
+        timerId = setTimeout(()=>{canFindArts=true}, 500);
+        findArts()
+    }
 }

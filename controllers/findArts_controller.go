@@ -3,20 +3,12 @@ package controllers
 import (
 	"github.com/gin-gonic/gin"
 	. "krisArts/models"
-	. "krisArts/utils"
 	"net/http"
 	"strconv"
 	"strings"
 )
 
 func FindArts(c *gin.Context) {
-	var userIsLogin, _ = CheckSessionUser(c.Request)
-
-	if !userIsLogin {
-		c.Writer.WriteHeader(http.StatusForbidden)
-		return
-	}
-
 	countArts, err := strconv.Atoi(c.Query("countArts"))
 	if err != nil {
 		c.Writer.WriteHeader(http.StatusBadRequest)

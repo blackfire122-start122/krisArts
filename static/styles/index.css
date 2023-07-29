@@ -29,6 +29,10 @@ li {
   border-radius: 8px;
 }
 
+li h3{
+  margin: 5px;
+}
+
 img {
   width: 250px;
   height: 250px;
