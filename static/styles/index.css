@@ -81,3 +81,33 @@ p {
   font-size: 3em;
   color: gray;
 }
+
+a{
+  color: white;
+  text-decoration:none;
+}
+
+.hContainer{
+  display: flex;
+  justify-content: space-between;
+}
+
+.about{
+  
+}
+
+header {
+    flex-direction: column;3 
+    background: rgb(63,94,251);
+    background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(12,21,91,1) 50%, rgba(23,24,100,1) 100%);
+}
+
+.navHeader{
+    width: 100%;
+}
+
+.menu{
+    display: flex;
+    flex-wrap: wrap;
+}
+

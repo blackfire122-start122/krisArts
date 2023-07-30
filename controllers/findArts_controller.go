@@ -33,6 +33,7 @@ func FindArts(c *gin.Context) {
 			"Image":       art.Image,
 			"Description": art.Description,
 			"Price":       art.Price,
+			"ID":          art.ID,
 		}
 		simplifiedArts = append(simplifiedArts, simplifiedArt)
 	}

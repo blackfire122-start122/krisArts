@@ -2,27 +2,57 @@
 <html>
 <head>
     <title>Kris Arts</title>
+    <link rel="stylesheet" e href="/static/styles/header.css">
     <link rel="stylesheet" href="/static/styles/index.css">
 </head>
 <body>
-    {{ template "header.html" . }}
-
-    <div class="find">
-        <input class="findInput" onchange="findArts(this)" type="text" placeholder="Find art" />
-        <img onclick="findArts(this)" class="imgFind" src="/static/images/find.png" alt="find">
+  <header>
+    <div class="hContainer">
+      <h1>{{ .title }}</h1>
+      {{ if .userIsLogin }}
+        <div>
+          <a href="/profile/{{ .user.Username }}">
+            <img class="imgUser" src= "{{ .user.Image }}" alt="{{ .user.Username }}">
+          </a>
+          <h2 class="userName">{{ .user.Username }}</h2>
+        </div>
+      {{ end }}
     </div>
+    
+    <h3 class="about"><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum voluptatum vero molestias excepturi, placeat eum. Eligendi accusantium harum unde perspiciatis recusandae, modi, illum, tenetur expedita iste quisquam quia a voluptatem.</div>
+    <div>Aliquam cum unde expedita architecto minima cumque facere, reiciendis iste. Repudiandae quis explicabo impedit facere voluptatem, maxime perspiciatis distinctio, reprehenderit nobis quasi facilis temporibus alias, blanditiis quam deserunt sit harum?</div>
+    <div>Quibusdam natus deleniti quae ex aliquam, ab, atque eius totam neque deserunt nobis corporis quia fugiat sapiente. Fuga debitis ducimus alias ullam perspiciatis deserunt itaque magnam fugit consequatur iste. Veniam.</div>
+    <div>Distinctio quaerat ex facilis omnis minus sunt, non officiis, tenetur veniam optio nulla sed, quos eius labore, necessitatibus nisi ducimus autem velit magnam sint harum tempora itaque dolor laudantium. Tenetur!</div></h3>
+    
+    <nav class="navHeader">
+      <ul class="menu">
+        <li><a href="/">Home</a></li>
+        <li><a href="/create">Create</a></li>
+        <li><a href="/login">Enter</a></li>
+        <li><a href="/register">Register</a></li>
+      </ul>
+    </nav>
+    
+  </header>
 
-    <ul class="listArts">
-        {{ range .arts }}
-        <li>
+  <div class="find">
+      <input class="findInput" onchange="findArts(this)" type="text" placeholder="Find art" />
+      <img onclick="findArts(this)" class="imgFind" src="/static/images/find.png" alt="find">
+  </div>
+
+  <ul class="listArts">
+      {{ range .arts }}
+      <li>
+          <a href="/art/{{.ID}}">
             <h3>{{ .Name }}</h3>
             <img src="{{ .Image }}" alt="Artwork">
             <p>Description: {{ .Description }}</p>
             <p>Price: {{ .Price }}₴</p>
-        </li>
-        {{ end }}
-    </ul>
-    <span class="spanFind"></span>
-    <script src="/static/js/index.js"></script>
+          </a>
+      </li>
+      {{ end }}
+  </ul>
+  <span class="spanFind"></span>
+  <script src="/static/js/index.js"></script>
 </body>
 </html>

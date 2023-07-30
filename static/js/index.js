@@ -47,10 +47,12 @@ function createArtElement(artData) {
   const liElement = document.createElement('li');
   
   liElement.innerHTML = `
+    <a href="/art/${artData.ID}">
     <h3>${artData.Name}</h3>
     <img src="${artData.Image}" alt="Artwork" width="200" height="200">
     <p>Description: ${artData.Description}</p>
     <p>Price: ${artData.Price}</p>
+    <\a>
   `;
 
   return liElement;
