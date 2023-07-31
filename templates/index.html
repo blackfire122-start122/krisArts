@@ -7,6 +7,11 @@
 </head>
 <body>
   <header>
+    <div class="fone">
+      {{ range .arts }}
+        <img src="{{ .Image }}">
+      {{ end }}
+    </div>
     <div class="hContainer">
       <h1>{{ .title }}</h1>
       {{ if .userIsLogin }}
