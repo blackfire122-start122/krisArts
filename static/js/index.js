@@ -2,7 +2,42 @@ const ulElement = document.querySelector('.listArts');
 const findInput = document.querySelector('.findInput');
 const spanFind = document.querySelector('.spanFind');
 
-let countArts = 20
+const line1 = document.querySelector('.line-1');
+const line2 = document.querySelector('.line-2');
+const line3 = document.querySelector('.line-3');
+
+line1.scroll()
+
+line2.scrollBy(400, 0);
+line3.scrollBy(100, 0);
+
+function scrollHorizontally() {
+  line1.scrollBy(1, 0);
+  line2.scrollBy(1, 0);
+  line3.scrollBy(1, 0);
+
+  const maxScrollLeft = line1.scrollWidth - line1.clientWidth-1;
+
+
+  if (line1.scrollLeft >= maxScrollLeft) {
+    line1.scrollLeft -= line1.firstElementChild.width + 1
+    line1.appendChild(line1.firstElementChild)
+  }
+
+  if (line2.scrollLeft >= maxScrollLeft) {
+    line2.scrollLeft -= line2.firstElementChild.width + 1
+    line2.appendChild(line2.firstElementChild)
+  }
+
+  if (line3.scrollLeft >= maxScrollLeft) {
+    line3.scrollLeft -= line3.firstElementChild.width + 1
+    line3.appendChild(line3.firstElementChild)
+  }
+}
+
+setInterval(scrollHorizontally, 10);
+
+let countArts = 60
 
 function findArts(e) {
   spanFind.innerText = ""

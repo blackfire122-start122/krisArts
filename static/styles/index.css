@@ -4,6 +4,7 @@ body {
   padding: 0;
   background-color: #111;
   color: #eee;
+  overflow-x:hidden;
 }
 
 h1 {
@@ -92,35 +93,54 @@ a{
   justify-content: space-between;
 }
 
-.about{
+.about {
   z-index: 2;
+  font-size: 1.5em;
+  background: linear-gradient(to right, #111, #015d65);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
 }
 
-header {
-    flex-direction: column;3 
+header .header{
+    position: absolute;
+    flex-direction: column;
     background: none;
     z-index: 2;
-    position: relative;
+    padding: 1%;
 }
 
-.fone {
-  height: 97em;
-  position: absolute;
-  z-index: -1;
- # overflow: hidden;
+header{
+  padding: 0;
 }
 
-.fone img {
-  display: inline-block;
+.line-1 img, .line-2 img, .line-3 img {
+  height: 100%;
   width: auto;
-  height: 33.3%;
-  border-radius: none;
+  border-radius: 0;
+  margin: 1px;
 }
 
+.line-1,.line-2,.line-3{
+  display: flex;
+  justify-content: flex-start;
+  overflow: hidden;
+  height: 30vh;
+  width: 100%;
+}
 
+.fon{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
 
 .navHeader{
+    font-size: 85% ;
     width: 100%;
+    position: absolute;
+    right: -27%;
+    margin-top: 12%;
 }
 
 .menu{
