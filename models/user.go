@@ -6,6 +6,8 @@ type User struct {
 	Password string
 	Image    string
 	Arts     []Art
+	Basket   Basket `gorm:"foreignKey:BasketId"`
+	BasketId uint64
 }
 
 type Admin struct {

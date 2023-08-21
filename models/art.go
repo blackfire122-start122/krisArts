@@ -7,5 +7,6 @@ type Art struct {
 	Name        string
 	Price       float64
 	UserId      uint64
-	User        User `gorm:"foreignKey:UserId"`
+	User        User     `gorm:"foreignKey:UserId"`
+	Baskets     []Basket `gorm:"many2many:basket_arts;"`
 }

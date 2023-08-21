@@ -7,20 +7,19 @@
 <body>
     {{ template "header.html" . }}
     <div class="art">
-      <div class="artHeader">
-        <h2>{{ .art.Name }}</h2>
-        <a href="/profile/{{ .art.User.Username }}">
-          <img id="autorImg" src=" {{ .art.User.Image }}" alt="">
-        </a>
-      </div>
-      <img id="artImg" src="/{{ .art.Image }}" alt="art">
-      <div class="downBtns">
-        <h2>{{ .art.Price }}₴</h2>
-        <img src="/static/image/basket.png" alt="">
-      </div>
-      <p>wathed 100</p>
-      <h3>{{ .art.Description }}</h3>
+        <div class="artHeader">
+            <h2>{{ .art.Name }}</h2>
+            <a href="/profile/{{ .art.User.Username }}">
+                <img id="authorImg" src=" {{ .art.User.Image }}" alt="">
+            </a>
+        </div>
+        <img id="artImg" src="/{{ .art.Image }}" alt="art">
+        <div class="downBtns">
+            <h2>{{ .art.Price }}₴</h2>
+            <img id="{{ .art.ID }}" onclick="InBasket(this)" src="/static/images/basket.png" alt="in basket">
+        </div>
+        <h3>{{ .art.Description }}</h3>
     </div>
-  <script src="/static/js/art.js"></script>
+    <script src="/static/js/art.js"></script>
 </body>
 </html>

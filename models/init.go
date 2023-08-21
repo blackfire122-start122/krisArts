@@ -13,7 +13,10 @@ func initDB() *gorm.DB {
 		panic("Не вдалося підключитись до бази даних")
 	}
 
-	db.AutoMigrate(&Art{}, User{}, Admin{})
+	err = db.AutoMigrate(&Art{}, User{}, Admin{}, Basket{})
+	if err != nil {
+		panic("Migration error")
+	}
 
 	return db
 }
