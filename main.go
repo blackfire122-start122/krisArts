@@ -27,6 +27,7 @@ func main() {
 	r.GET("/api/findArts", FindArts)
 	r.DELETE("/api/deleteArt", ProfileDeleteArt)
 	r.GET("/api/profile/loadArtsUser", LoadArtsUser)
+	r.GET("art/:id",ArtController)
 
 	err := r.Run(":8080")
 	if err != nil {
