@@ -1,0 +1,35 @@
+body{
+  margin: 0;
+  padding: 0;
+  background: #111;
+}
+
+#artImg{
+  width: 100%;
+}
+
+.artHeader{
+  height: 10vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2px;
+}
+
+#autorImg{
+  width: 10em;
+  height: 10em;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.art{
+  color: white;
+}
+
+.downBtns{
+  height: 4vh;
+  display:flex;
+  justify-content: space-between;
+  padding: 1%;
+}
