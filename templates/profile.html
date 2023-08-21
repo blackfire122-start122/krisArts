@@ -7,39 +7,44 @@
 <body>
     {{ template "header.html" . }}
     <div class="userInfo">
-      <img class="userImg" src="{{ .userProfile.Image }}" alt="{{ .userProfile.Username }}">
-      <h1>{{ .userProfile.Username }}</h1>
+        <img class="userImg" src="{{ .userProfile.Image }}" alt="{{ .userProfile.Username }}">
+        <h1>{{ .userProfile.Username }}</h1>
+        <img class="basket" onclick="BasketClick()" src="/static/images/basket.png" alt="basket">
     </div>
-    
+
     <div class="arts">
-      {{ range .arts }}
+        {{ range .arts }}
         <img id="{{ .ID }}" class="artImg" src="/{{ .Image }}" alt="Artwork">
-      {{ end }}
+        {{ end }}
     </div>
-    
-   
+
+
     <div class="fullscreenImageContainer" id="fullscreenImageContainer">
         <span class="closeButton" id="closeButton">&times;</span>
         <img class="fullscreenImage" id="fullscreenImage">
         {{if .profileOwner}}
-          <div class="change">
+        <div class="change">
             <button onclick="goToUrlChange()">Change</button>
             <button onclick="showDeleteConfirmation()" class="buttonRed">Delete</button>
-          </div>
+        </div>
         {{ end }}
     </div>
-      
+
     {{if .profileOwner}}
-      <div class="deleteConfirmation" id="deleteConfirmation">
-          <p>Are you sure you want to delete this art?</p>
-          <div class="buttons">
-              <button onclick="deleteArt()" class="buttonRed">Yes, delete</button>
-              <button onclick="hideDeleteConfirmation()">Cancel</button>
-          </div>
-      </div>
+    <div class="deleteConfirmation" id="deleteConfirmation">
+        <p>Are you sure you want to delete this art?</p>
+        <div class="buttons">
+            <button onclick="deleteArt()" class="buttonRed">Yes, delete</button>
+            <button onclick="hideDeleteConfirmation()">Cancel</button>
+        </div>
+    </div>
     {{end}}
 
-  <script src="/static/js/profile.js"></script>
+    <div class="basketPopup">
+        <p>dgfgffg</p>
+    </div>
+
+    <script src="/static/js/profile.js"></script>
 </body>
 </html>
 

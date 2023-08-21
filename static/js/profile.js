@@ -114,3 +114,25 @@ function handleScroll() {
         findArts()
     }
 }
+
+function BasketClick(){
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", "/api/getAllArtsBasket", true);
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                let data = JSON.parse(xhr.response)
+
+                for (let art in data) {
+                    console.log(data[art])
+                }
+
+            } else {
+                console.log(xhr.statusText);
+            }
+        }
+    };
+
+    xhr.send();
+}

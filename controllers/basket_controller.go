@@ -40,3 +40,29 @@ func AddToBasket(c *gin.Context) {
 
 	c.Writer.WriteHeader(http.StatusOK)
 }
+
+func GetAllArtsBasket(c *gin.Context) {
+	var userIsLogin, user = CheckSessionUser(c.Request)
+
+	if !userIsLogin {
+		c.Writer.WriteHeader(http.StatusForbidden)
+		return
+	}
+
+	DB.Preload("Basket.Arts").First(&user)
+
+	var resp []map[string]interface{}
+	for _, art := range user.Basket.Arts {
+		artItem := map[string]interface{}{
+			"Name":        art.Name,
+			"Image":       art.Image,
+			"Description": art.Description,
+			"Price":       art.Price,
+			"ID":          art.ID,
+		}
+		resp = append(resp, artItem)
+	}
+
+	c.JSON(http.StatusOK, resp)
+
+}

@@ -29,6 +29,7 @@ func main() {
 	r.GET("/api/profile/loadArtsUser", LoadArtsUser)
 	r.GET("art/:id", ArtController)
 	r.POST("/api/addToBasket", AddToBasket)
+	r.GET("/api/getAllArtsBasket", GetAllArtsBasket)
 
 	err := r.Run(":8080")
 	if err != nil {
