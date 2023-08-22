@@ -130,13 +130,51 @@ img {
 }
 
 .basketPopup{
-  /*display: none;*/
+  display: none;
+  color: black;
   position: fixed;
   z-index: 9998;
   width: 80%;
   height: 80%;
   background-color: rgb(255,255,255,0.9);
-  top: 0;
+  top: 50%;
   border-radius: 10px;
-  margin: 0 auto;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  flex-direction: column;
+  align-items: center;
+}
+
+.order{
+  text-decoration: none;
+  color: black;
+  font-size: 5em;
+  padding: 10px 20px;
+  background: green;
+  border-radius: 10px;
+  margin: 1%;
+}
+
+.basketArts{
+  overflow-y: auto;
+}
+
+.artBasket{
+  text-decoration: none;
+  color: white;
+  text-align: center;
+  border-radius: 10px;
+  background: rgba(0,0,0,0.9);
+  display:flex;
+  margin: 1%;
+  padding: 1%;
+}
+
+.artBasket div {
+  width: 100%;
+}
+
+.artBasket p{
+  font-size: 2em;
+  text-align: end;
 }

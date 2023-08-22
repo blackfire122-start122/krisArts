@@ -4,6 +4,11 @@ const fullscreenImageContainer = document.getElementById("fullscreenImageContain
 const fullscreenImage = document.getElementById("fullscreenImage");
 const closeButton = document.getElementById("closeButton");
 
+const basketPopup = document.querySelector(".basketPopup")
+const basketArts = document.querySelector(".basketArts")
+
+const closeButtonBasket = document.getElementById("closeButtonBasket");
+
 let imgSelect
 
 function artClick (e) {
@@ -17,9 +22,15 @@ artImages.forEach((img) => {
 })
 
 function closeImage(){
-    fullscreenImageContainer.style.display = "none";
+    fullscreenImageContainer.style.display = "none"
 }
 closeButton.addEventListener("click", closeImage);
+
+closeButtonBasket.addEventListener("click", closeBasket);
+
+function closeBasket(){
+    basketPopup.style.display = "none"
+}
 
 function deleteArt(){
     let xhr = new XMLHttpRequest();
@@ -116,6 +127,7 @@ function handleScroll() {
 }
 
 function BasketClick(){
+    basketPopup.style.display = "flex"
     let xhr = new XMLHttpRequest();
     xhr.open("GET", "/api/getAllArtsBasket", true);
 
@@ -123,9 +135,9 @@ function BasketClick(){
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
                 let data = JSON.parse(xhr.response)
-
-                for (let art in data) {
-                    console.log(data[art])
+                basketArts.innerHTML = ""
+                for (let i in data) {
+                    basketArts.appendChild(artBasket(data[i]))
                 }
 
             } else {
@@ -135,4 +147,26 @@ function BasketClick(){
     };
 
     xhr.send();
+}
+
+function artBasket(artData){
+    let art = document.createElement("a")
+    let name = document.createElement("h2")
+    let image = document.createElement("img")
+    let price = document.createElement("p")
+    let divTexts = document.createElement("div")
+    
+    
+    art.className = "artBasket"
+    art.href = "/art/"+artData.ID
+    name.innerHTML = artData.Name
+    image.src = "/"+artData.Image
+    price.innerHTML = artData.Price+"₴"
+    
+    art.append(image)
+    art.append(divTexts)
+    divTexts.append(name)
+    divTexts.append(price)
+    
+    return art
 }
