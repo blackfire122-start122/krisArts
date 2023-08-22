@@ -148,7 +148,7 @@ img {
 .order{
   text-decoration: none;
   color: black;
-  font-size: 5em;
+  font-size: 3em;
   padding: 10px 20px;
   background: green;
   border-radius: 10px;
@@ -160,7 +160,6 @@ img {
 }
 
 .artBasket{
-  text-decoration: none;
   color: white;
   text-align: center;
   border-radius: 10px;
@@ -170,11 +169,41 @@ img {
   padding: 1%;
 }
 
-.artBasket div {
+.link{
+  text-decoration: none;
+  color:white;
+}
+
+.divTexts {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .artBasket p{
   font-size: 2em;
-  text-align: end;
+}
+
+.artBasket img {
+  border-radius: 10px;
+}
+
+.deleteBtn{
+  font-size: 1.5em;
+  background: red;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  height: 2em;
+}
+
+.deleteBtn:hover{
+  background-color: #dc0000;
+}
+
+.divBtnPrice{
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
 }

@@ -30,6 +30,7 @@ func main() {
 	r.GET("art/:id", ArtController)
 	r.POST("/api/addToBasket", AddToBasket)
 	r.GET("/api/getAllArtsBasket", GetAllArtsBasket)
+	r.DELETE("/api/deleteFromBasket/:artId", DeleteFromBasket)
 
 	err := r.Run(":8080")
 	if err != nil {

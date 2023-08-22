@@ -66,3 +66,45 @@ func GetAllArtsBasket(c *gin.Context) {
 	c.JSON(http.StatusOK, resp)
 
 }
+
+func DeleteFromBasket(c *gin.Context) {
+	var userIsLogin, user = CheckSessionUser(c.Request)
+
+	if !userIsLogin {
+		c.Writer.WriteHeader(http.StatusForbidden)
+		return
+	}
+
+	artIDStr := c.Param("artId")
+
+	artID, err := strconv.ParseUint(artIDStr, 10, 64)
+	if err != nil {
+		c.Writer.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	if err := DB.Preload("Basket.Arts").First(&user, user.Id).Error; err != nil {
+		c.Writer.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	var artToDelete Art
+	for _, art := range user.Basket.Arts {
+		if art.ID == artID {
+			artToDelete = art
+			break
+		}
+	}
+
+	if artToDelete.ID == 0 {
+		c.Writer.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	if err := DB.Model(&user.Basket).Association("Arts").Delete(&artToDelete); err != nil {
+		c.Writer.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	c.Writer.WriteHeader(http.StatusOK)
+}

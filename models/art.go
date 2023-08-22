@@ -1,7 +1,7 @@
 package models
 
 type Art struct {
-	ID          uint   `gorm:"primaryKey"`
+	ID          uint64 `gorm:"primaryKey"`
 	Image       string `gorm:"not null"`
 	Description string
 	Name        string

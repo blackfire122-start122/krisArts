@@ -150,23 +150,57 @@ function BasketClick(){
 }
 
 function artBasket(artData){
-    let art = document.createElement("a")
+    let art = document.createElement("div")
+    let link = document.createElement("a")
     let name = document.createElement("h2")
     let image = document.createElement("img")
     let price = document.createElement("p")
     let divTexts = document.createElement("div")
-    
+    let divBtnPrice = document.createElement("div")
+    let deleteBtn = document.createElement("button")
+
     
     art.className = "artBasket"
-    art.href = "/art/"+artData.ID
     name.innerHTML = artData.Name
     image.src = "/"+artData.Image
     price.innerHTML = artData.Price+"₴"
-    
+    deleteBtn.className = "deleteBtn"
+    deleteBtn.innerHTML = "Delete"
+    divBtnPrice.className = "divBtnPrice"
+    divTexts.className = "divTexts"
+    link.href = "/art/"+artData.ID
+    link.className = "link"
+
+    deleteBtn.addEventListener("click",()=>{
+        let xhr = new XMLHttpRequest();
+        let artId = encodeURIComponent(artData.ID);
+
+        xhr.open("DELETE", "/api/deleteFromBasket/" + artId, true);
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    art.remove()
+                } else {
+                    console.log(xhr.statusText);
+                }
+            }
+        };
+
+        xhr.send();
+    })
+
+
     art.append(image)
     art.append(divTexts)
-    divTexts.append(name)
-    divTexts.append(price)
-    
+
+    divTexts.append(link)
+    divTexts.append(divBtnPrice)
+
+    link.append(name)
+
+    divBtnPrice.append(deleteBtn)
+    divBtnPrice.append(price)
+
     return art
 }
