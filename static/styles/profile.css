@@ -129,7 +129,7 @@ img {
   right: 1%;
 }
 
-.basketPopup{
+.basketPopup, .order{
   display: none;
   color: black;
   position: fixed;
@@ -145,8 +145,7 @@ img {
   align-items: center;
 }
 
-.order{
-  text-decoration: none;
+.orderBtn{
   color: black;
   font-size: 3em;
   padding: 10px 20px;

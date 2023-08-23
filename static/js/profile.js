@@ -4,14 +4,19 @@ const fullscreenImageContainer = document.getElementById("fullscreenImageContain
 const fullscreenImage = document.getElementById("fullscreenImage");
 const closeButton = document.getElementById("closeButton");
 
+const closeButtonOrder = document.getElementById("closeButtonOrder");
+
 const basketPopup = document.querySelector(".basketPopup")
 const basketArts = document.querySelector(".basketArts")
+
+const order = document.querySelector(".order")
 
 const closeButtonBasket = document.getElementById("closeButtonBasket");
 
 let imgSelect
 
 function artClick (e) {
+    closeBasket()
     fullscreenImage.src = e.src;
     fullscreenImageContainer.style.display = "block";
     imgSelect = e
@@ -28,8 +33,14 @@ closeButton.addEventListener("click", closeImage);
 
 closeButtonBasket.addEventListener("click", closeBasket);
 
+closeButtonOrder.addEventListener("click", closeOrder);
+
 function closeBasket(){
     basketPopup.style.display = "none"
+}
+
+function closeOrder(){
+    order.style.display = "none"
 }
 
 function deleteArt(){
@@ -127,6 +138,7 @@ function handleScroll() {
 }
 
 function BasketClick(){
+    closeImage()
     basketPopup.style.display = "flex"
     let xhr = new XMLHttpRequest();
     xhr.open("GET", "/api/getAllArtsBasket", true);
@@ -203,4 +215,11 @@ function artBasket(artData){
     divBtnPrice.append(price)
 
     return art
+}
+
+function orderClick(){
+  closeBasket()
+  order.style.display = "flex"
+  
+  
 }
