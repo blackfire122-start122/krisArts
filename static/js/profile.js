@@ -1,17 +1,17 @@
-const artImages = document.querySelectorAll(".artImg");
-const arts = document.querySelector(".arts");
-const fullscreenImageContainer = document.getElementById("fullscreenImageContainer");
-const fullscreenImage = document.getElementById("fullscreenImage");
-const closeButton = document.getElementById("closeButton");
+const artImages = document.querySelectorAll(".artImg")
+const arts = document.querySelector(".arts")
 
-const closeButtonOrder = document.getElementById("closeButtonOrder");
-
+const fullscreenImageContainer = document.getElementById("fullscreenImageContainer")
+const fullscreenImage = document.getElementById("fullscreenImage")
 const basketPopup = document.querySelector(".basketPopup")
 const basketArts = document.querySelector(".basketArts")
-
 const order = document.querySelector(".order")
 
-const closeButtonBasket = document.getElementById("closeButtonBasket");
+const closeButtonBasket = document.getElementById("closeButtonBasket")
+const closeButton = document.getElementById("closeButton")
+const closeButtonOrder = document.getElementById("closeButtonOrder")
+
+const price = document.getElementById("price")
 
 let imgSelect
 
@@ -171,7 +171,7 @@ function artBasket(artData){
     let divBtnPrice = document.createElement("div")
     let deleteBtn = document.createElement("button")
 
-    
+
     art.className = "artBasket"
     name.innerHTML = artData.Name
     image.src = "/"+artData.Image
@@ -217,9 +217,50 @@ function artBasket(artData){
     return art
 }
 
-function orderClick(){
-  closeBasket()
-  order.style.display = "flex"
-  
-  
+function ToOrderClick(){
+    closeBasket()
+    order.style.display = "flex"
+
+    let fullPrice = 0
+
+    for (let art of basketArts.getElementsByClassName("artBasket")) {
+        fullPrice += Number(art.getElementsByTagName("p")[0].innerText.slice(0,-1))
+    }
+
+    price.innerHTML = "Price: " + fullPrice + "₴"
 }
+
+function OrderClick(){
+    let xhr = new XMLHttpRequest();
+
+    xhr.open("POST", "/api/order", true);
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                let data = JSON.parse(xhr.response)
+                console.log(data)
+            } else {
+                console.log(xhr.statusText);
+            }
+        }
+    };
+
+    xhr.send();
+}
+
+
+
+
+const payment = document.querySelector('.payment')
+
+payment.addEventListener('click', event => {
+    if (event.target.type === 'checkbox') {
+        if (event.target.checked) {
+            [...payment.querySelectorAll('input:not(:checked)')].forEach(input => input.disabled = true)
+        } else {
+            [...payment.querySelectorAll('input')].forEach(input => input.disabled = false)
+        }
+    }
+})
+

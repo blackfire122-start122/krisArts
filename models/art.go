@@ -9,4 +9,5 @@ type Art struct {
 	UserId      uint64
 	User        User     `gorm:"foreignKey:UserId"`
 	Baskets     []Basket `gorm:"many2many:basket_arts;"`
+	Orders      []Order  `gorm:"many2many:order_arts;"`
 }

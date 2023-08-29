@@ -12,6 +12,7 @@ import (
 )
 
 var store = sessions.NewCookieStore([]byte(os.Getenv("SECRET_KEY")))
+var ApiTokenNovaPoshta = os.Getenv("ApiTokenNovaPoshta")
 
 type UserLogin struct {
 	Username string `form:"username" binding:"required"`

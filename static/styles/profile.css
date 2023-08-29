@@ -62,7 +62,6 @@ img {
   right: 30px;
   font-size: 40px;
   font-weight: bold;
-  color: #fff;
   cursor: pointer;
 }
 
@@ -152,6 +151,7 @@ img {
   background: green;
   border-radius: 10px;
   margin: 1%;
+  border: none;
 }
 
 .basketArts{
@@ -205,4 +205,94 @@ img {
   align-items: center;
   display: flex;
   justify-content: space-around;
+}
+
+#schedule{
+  display: flex;
+  flex-direction: column;
+}
+
+.order {
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin: 20px 0;
+  padding: 30px;
+}
+
+.order .price {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.order{
+  display: flex;
+}
+
+.order select, .order input{
+  width: 100%;
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  outline: none;
+  margin: 1%;
+}
+
+.order .select-option {
+  padding: 5px 10px;
+  font-size: 16px;
+}
+
+.order .schedule {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.order .schedule li {
+  padding: 5px 10px;
+  font-size: 16px;
+}
+
+.novaPoshta, .payment, .deliveryMethod {
+  width: 90%;
+}
+
+.novaPoshta input{
+  display: block;
+  position: relative;
+  right: 2%;
+}
+
+.payment label, .deliveryMethod label{
+  background-color: white;
+  height: 2em;
+  border-radius: 5px;
+  border: solid 1px #ccc;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  margin: 1%;
+}
+
+.payment label input{
+  width: 1em;
+}
+
+.deliveryMethod .labels{
+  display: flex;
+  justify-content: space-around;
+}
+
+.deliveryMethod label {
+  width: 10em;
+}
+
+.deliveryMethod label input{
+  width: 1em;
+  margin-right: 10%;
+}
+
+#arePostamat{
+  display: none;
+  color: red;
 }

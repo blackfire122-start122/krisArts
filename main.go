@@ -31,10 +31,15 @@ func main() {
 	r.POST("/api/addToBasket", AddToBasket)
 	r.GET("/api/getAllArtsBasket", GetAllArtsBasket)
 	r.DELETE("/api/deleteFromBasket/:artId", DeleteFromBasket)
+	r.POST("/api/order", OrderController)
+	r.POST("/api/order/findCityNovaPoshta", FindCity)
+	r.POST("/api/order/getWarehouses", GetWarehouses)
+	r.POST("/api/order/GetSettlements", SearchSettlements)
 
 	err := r.Run(":8080")
 	if err != nil {
 		fmt.Println("Err run server ", err.Error())
 		return
 	}
+
 }

@@ -9,7 +9,9 @@
     <div class="userInfo">
         <img class="userImg" src="{{ .userProfile.Image }}" alt="{{ .userProfile.Username }}">
         <h1>{{ .userProfile.Username }}</h1>
-        <img class="basket" onclick="BasketClick()" src="/static/images/basket.png" alt="basket">
+        {{if .profileOwner}}
+            <img class="basket" onclick="BasketClick()" src="/static/images/basket.png" alt="basket">
+        {{end}}
     </div>
 
     <div class="arts">
@@ -31,28 +33,87 @@
     </div>
 
     {{if .profileOwner}}
-    <div class="deleteConfirmation" id="deleteConfirmation">
-        <p>Are you sure you want to delete this art?</p>
-        <div class="buttons">
-            <button onclick="deleteArt()" class="buttonRed">Yes, delete</button>
-            <button onclick="hideDeleteConfirmation()">Cancel</button>
+        <div class="deleteConfirmation" id="deleteConfirmation">
+            <p>Are you sure you want to delete this art?</p>
+            <div class="buttons">
+                <button onclick="deleteArt()" class="buttonRed">Yes, delete</button>
+                <button onclick="hideDeleteConfirmation()">Cancel</button>
+            </div>
         </div>
+
+        <div class="basketPopup">
+            <span class="closeButton" id="closeButtonBasket">&times;</span>
+            <h1>Basket</h1>
+            <div class="basketArts"></div>
+            <button class="orderBtn" onclick="ToOrderClick()">To order</button>
+        </div>
+
+    <div class="order">
+        <span class="closeButton" id="closeButtonOrder">&times;</span>
+
+        <input type="phone" name="phone" value="+380">
+        <input type="text" name="firstname" value="{{ .userProfile.Username }}" placeholder="Firstname">
+        <input type="text" name="Lastname" placeholder="Lastname">
+
+        <div class="deliveryMethod">
+            <h2>Delivery Method</h2>
+            <div class="labels">
+                <label for="department">
+                    <input type="radio" name="delivery" value="department" id="department" />
+                    <p>Department</p>
+                </label>
+                <label for="postamat">
+                    <input type="radio" name="delivery" value="postamat" id="postamat" />
+                    <p>Postamat</p>
+                </label>
+                <label for="courier">
+                    <input type="radio" name="delivery" value="courier" id="courier" />
+                    <p>Courier</p>
+                </label>
+            </div>
+        </div>
+
+        <div class="novaPoshta" id="departmentInputs" style="display: none;">
+            <input onchange="FindCity(this, 'department')" placeholder="City name">
+            <select onchange="FindWarehouses(this,'department')" id="selectCityDepartment"></select>
+            <select onchange="Schedule(this)" id="selectWarehouseSettlement"></select>
+            <div id="schedule"></div>
+        </div>
+
+        <div class="novaPoshta" id="postamatInputs" style="display: none;">
+            <input onchange="FindCity(this, 'postamat')" placeholder="City name">
+            <select onchange="FindWarehouses(this,'postamat')" id="selectCityWarehouse"></select>
+            <select id="selectWarehouse"></select>
+            <span id="arePostamat">In this city there is no postomat</span>
+        </div>
+
+        <div class="novaPoshta" id="courierInputs" style="display: none;">
+            <!-- Додайте інпути та селекти для кур'єра тут -->
+        </div>
+
+
+        <div class="payment">
+            <h2>Payment</h2>
+            <label for="postpaid">
+                <input type="checkbox" value="postpaid" id="postpaid" />
+                <p>Postpaid</p>
+            </label>
+            <label for="card">
+                <input type="checkbox" value="card" id="card" />
+                <p>Сard</p>
+            </label>
+            <p id="price">Price: </p>
+        </div>
+
+        <input type="text" name="comment" placeholder="Your Comment to order">
+
+        <button class="orderBtn" onclick="OrderClick()">Order</button>
     </div>
+
     {{end}}
 
-    <div class="basketPopup">
-      <span class="closeButton" id="closeButtonBasket">&times;</span>
-      <h1>Basket</h1>
-      <div class="basketArts"></div>
-      <button class="orderBtn" onclick="orderClick()">Order</button>
-    </div>
-    
-    <div class="order">
-      <span class="closeButton" id="closeButtonOrder">&times;</span>
-      <p id="price">price: </p>
-    </div>
-    
     <script src="/static/js/profile.js"></script>
+    <script src="/static/js/novaPoshta.js"></script>
 </body>
 </html>
 
